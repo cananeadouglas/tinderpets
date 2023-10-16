@@ -7,6 +7,7 @@ import Chat from "../Pages/chat";
 import Match from "../Pages/match";
 import Feed from "../Pages/feed";
 import HomeScreen from "../Screens/homeScreen";
+import Information from "../Pages/information";
 
 const AppTab = createBottomTabNavigator();
 
@@ -46,6 +47,21 @@ const AuthRoutes = () => {
                         tabBarIcon: (({ size, color }) => (
                             <Entypo 
                                 name="clipboard"
+                                size={size}
+                                color={color}
+                            />
+                        ))
+                    }}
+                >
+                </AppTab.Screen>
+
+                <AppTab.Screen
+                    name="Info"
+                    component={Information}
+                    options={{
+                        tabBarIcon: (({ size, color }) => (
+                            <Entypo 
+                                name="text-document-inverted"
                                 size={size}
                                 color={color}
                             />

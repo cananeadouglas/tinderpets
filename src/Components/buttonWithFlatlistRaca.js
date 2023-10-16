@@ -19,7 +19,7 @@ const ButtonWithFlatList = ({ selectedRaca, onRacaSelect }) => {
       }
     }
     getSexoAnimal()
-    }, []);
+  }, []);
 
 
   

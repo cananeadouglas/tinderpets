@@ -10,7 +10,6 @@ const Feed = () => {
   const Photo = () => {
     return (
       <View style={styles.header}> 
-        {/* <Carousel /> */}
         <Swiper />
       </View>
     )
@@ -28,9 +27,7 @@ const Feed = () => {
 
 
     return (
-      
       <View style={styles.boxContainer}>
-        
         <View style={styles.box}>
           <View style={styles.inner}>
             <Text></Text>
@@ -48,22 +45,22 @@ const Feed = () => {
             </TouchableOpacity>
         </View>
 
-      <View style={styles.box}>
-          <TouchableOpacity style={styles.inner}>
-                <MaterialIcons
-                    name='cancel'
-                    size={50}
-                    color='red'
-                    onPress={handelCancel}
-                />
-          </TouchableOpacity>
-      </View>
+        <View style={styles.box}>
+            <TouchableOpacity style={styles.inner}>
+                  <MaterialIcons
+                      name='cancel'
+                      size={50}
+                      color='red'
+                      onPress={handelCancel}
+                  />
+            </TouchableOpacity>
+        </View>
 
-      <View style={styles.box}>
-          <View style={styles.inner}>
-            <Text></Text>
-          </View>
-      </View>
+        <View style={styles.box}>
+            <View style={styles.inner}>
+              <Text></Text>
+            </View>
+        </View>
 
       </View>
     );
