@@ -8,6 +8,7 @@ import Redefinicao from './src/Screens/redefinicao';
 import Confirmation from './src/Pages/confirmation';
 import Complete from './src/Pages/complete';
 import Information from './src/Pages/information';
+import Geolocation from './src/Pages/geolocation';
 
 import Welcome from './src/Pages/welcome';
 import UserIdentification from './src/Pages/userIdentification';
@@ -30,6 +31,7 @@ export default function App() {
         <Stack.Screen options={ {headerShown: false} } name='AuthRoutes' component={AuthRoutes} />
         <Stack.Screen options={ {headerShown: false} } name='Complete' component={Complete} />
         <Stack.Screen options={ {headerShown: false} } name='Information' component={Information} />
+        <Stack.Screen options={ {headerShown: false} } name='Geolocation' component={Geolocation} />
       </Stack.Navigator>
     </NavigationContainer>
   );

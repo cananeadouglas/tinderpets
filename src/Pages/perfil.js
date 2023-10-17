@@ -22,8 +22,8 @@ export default function Perfil() {
         try {
             const value0 = await AsyncStorage.getItem('nomePet');
             if (value0 !== null) {
-            setNomePet(value0);
-            console.log(nomePet);
+                setNomePet(value0);
+                console.log(nomePet);
             }
         } catch (e) {
             console.log(Error)
@@ -59,7 +59,8 @@ export default function Perfil() {
     }
 
     function atualizarLocalizacao() {
-        alert('atualizar Geolocalização')
+        //alert('atualizar Geolocalização')
+        navigation.navigate('Geolocation')
     }
 
 
@@ -106,7 +107,7 @@ export default function Perfil() {
                 onPress={completarCadastro}
             />
             <ButtonBig 
-                title='Atualizar Localização'
+                title='Permitir Localização'
                 onPress={atualizarLocalizacao}
             />
         </SafeAreaView>

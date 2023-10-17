@@ -147,11 +147,25 @@ const Information = () => {
         )
     }
 
+    const Inferior = () => {
+        return (
+            <View style={styles.header}> 
+                <Text style={styles.texto}>
+                “Chegará o dia em que todo homem conhecerá
+                o íntimo dos animais. Nesse dia, um crime contra
+                 um animal será considerado um crime contra a
+                 própria humanidade.” ― Leonardo da Vinci
+                </Text>
+            </View>
+        )
+    }
+
   return (
     <ScrollView>
         <SafeAreaView style={styles.container}>
             <Superior />
             <Boxes></Boxes>
+            <Inferior />
         </SafeAreaView>
     </ScrollView>
   )

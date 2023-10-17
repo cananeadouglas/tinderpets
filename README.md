@@ -78,3 +78,23 @@ CREATE POLICY "public" ON "public"."tipoanimal"
 AS PERMISSIVE FOR ALL
 TO public
 USING (true)
+
+
+
+Geolocation
+
+npx expo install expo-location
+yarn add react-native-maps
+yarn add expo-location
+
+"plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ],
+
+
+
