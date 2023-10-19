@@ -59,14 +59,17 @@ const Geolocation = () => {
 
     async function handelSaveLocation () {
         const email = await AsyncStorage.getItem('email');
-        //console.log(email)
+        console.log(email)
         if (email !== '') {
             //alert('aqui tem email ' + email)
             try {
-                await supabase.get(`/usuario?email=eq.${email}&select=*`)
+                await supabase.get(`/usuario?email=eq.jdfc1@aluno.ifal.edu.br&select=id`)
                 .then(
                     (response) => {
-                        console.log(response.data)
+                        setGetId(response.data);
+                        console.log('primeiro', getId);
+                        const valorInteiro = getId[0].id;
+                        console.log(valorInteiro);
                     }
                 )
             } catch (error) {
