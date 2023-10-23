@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Text, View, Image } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
-
+import { getAuth, signOut } from "firebase/auth";
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -9,11 +9,37 @@ import * as ImagePicker from 'expo-image-picker';
 import { ButtonSmall } from '../Components/buttonSmall';
 import { ButtonBig } from '../Components/buttonBig';
 import { useNavigation } from '@react-navigation/core';
-
+import { auth } from '../firebase';
+import supabase from '../supabase';
 
 export default function Perfil() {
 
     const navigation = useNavigation();
+
+    const currentUser = getAuth();
+    
+    // logout start
+    if (currentUser != null) {
+        //alert('logado')
+    } else {
+        alert('E necessário logar');
+        navigation.navigate('LoginScreen');
+    }
+
+    function handleSignout () {
+        try {
+            signOut(auth)
+            .then(() => {
+                alert('Você se desconectou');
+                navigation.navigate('LoginScreen');
+            })
+        } catch(error){
+            const errorMessage = error.errorMessage;
+            alert(errorMessage);
+        }
+    };
+    // logout end
+
     
     const [ nomePet, setNomePet ] = useState(null);
     const [ sexoPet, setSexoPet ] = useState(null);
@@ -43,8 +69,6 @@ export default function Perfil() {
                     setSexoPet('Fêmea');
                     console.log(sexoPet);
                 }
-            
-            
             }
         } catch (e) {
             console.log(Error)
@@ -55,7 +79,6 @@ export default function Perfil() {
     function completarCadastro() {
         //alert('completar cadastro')
         navigation.navigate('Complete')
-
     }
 
     function atualizarLocalizacao() {
@@ -81,6 +104,31 @@ export default function Perfil() {
         }
     };
     // avatar imagem picker end
+
+
+    // get raça start
+    //const [obterRaça, setObterRaca ] = useState('');
+    
+    // const obterraça = async () => {
+    //     try {
+    //         const email = await AsyncStorage.getItem('email');
+    //         if(email !== ''){
+                
+    //             .then (
+    //                 (response) => {
+    //                     console.log(response.data)
+
+    //                 }
+    //             )
+    //         }
+    //     } catch (error) {
+    //         console.log('error' , error)
+    //     }
+    // }
+    // obterraça();
+
+
+    // get raça end
 
     return (
         <SafeAreaView>
@@ -110,6 +158,17 @@ export default function Perfil() {
                 title='Permitir Localização'
                 onPress={atualizarLocalizacao}
             />
+            <View>
+
+            <View>
+            <Text>Logado com: { auth.currentUser?.email } </Text>
+                <ButtonBig
+                    title="Sair do sistema"
+                    onPress={handleSignout}
+                />
+            </View>
+
+      </View>
         </SafeAreaView>
     );
   

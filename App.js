@@ -21,15 +21,15 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen options={ {headerShown: false} } name="LoginScreen" component={LoginScreen} />
+        {/* <Stack.Screen options={ {headerShown: false} } name="LoginScreen" component={LoginScreen} />
         <Stack.Screen options={ {headerShown: false} } name="Cadastro" component={Cadastro} />
         <Stack.Screen options={ {headerShown: false} } name="Redefinicao" component={Redefinicao} /> 
-        <Stack.Screen options={ {headerShown: false} } name="Welcome" component={Welcome} />
+        <Stack.Screen options={ {headerShown: false} } name="Welcome" component={Welcome} />  */}
         <Stack.Screen options={ {headerShown: false} } name="UserIdentification" component={UserIdentification} />
         <Stack.Screen options={ {headerShown: false} } name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen options={ {headerShown: false} } name='Confirmation' component={Confirmation} />
-        <Stack.Screen options={ {headerShown: false} } name='AuthRoutes' component={AuthRoutes} />
-        <Stack.Screen options={ {headerShown: false} } name='Complete' component={Complete} />
+        <Stack.Screen options={ {headerShown: false} } name='Confirmation' component={Confirmation} /> 
+        <Stack.Screen options={ {headerShown: false} } name='AuthRoutes' component={AuthRoutes} /> 
+        <Stack.Screen options={ {headerShown: false} } name='Complete' component={Complete} /> 
         <Stack.Screen options={ {headerShown: false} } name='Information' component={Information} />
         <Stack.Screen options={ {headerShown: false} } name='Geolocation' component={Geolocation} />
       </Stack.Navigator>

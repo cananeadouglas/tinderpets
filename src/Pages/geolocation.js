@@ -1,46 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
+import {Text, View, StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
 import MapView from 'react-native-maps';
 import { ButtonBig } from '../Components/buttonBig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import supabase from '../supabase';
+import { useNavigation } from '@react-navigation/core';
 
 const Geolocation = () => {
-  
+
+    const navigation = useNavigation();
+
     const [location, setLocation] = useState(null);
+    const [ getId, setGetId ] = useState('');
 
+    // resgatar email start
+    const [ email, setEmail ] = useState(null);
+    const getData0 = async () => {
+        try {
+            const recuperarEmail = await AsyncStorage.getItem('email');
+            if (recuperarEmail !== null) {
+                setEmail(recuperarEmail);
+                //console.log(email);
+            }
+        } catch (e) {
+            console.log(Error)
+        }
 
-    // const [ email, setEmail ] = useState(null);
-
-    // const getData0 = async () => {
-    //     try {
-    //         const getEmail = await AsyncStorage.getItem('email');
-    //         if (getEmail !== null) {
-    //             setEmail(getEmail);
-    //             //console.log(email);
-    //         }
-    //     } catch (e) {
-    //         console.log(Error)
-    //     }
-    // };
-    // getData0();
-
+        console.log(email)
+        if (email !== '') { // recuperação do ID
+            try {
+                await supabase.get(`/usuario?email=eq.${email}&select=id`)
+                .then(
+                    (response) => {
+                        const dados = response.data;
+                        //console.log(dados[0].id)
+                        setGetId(dados[0].id);
+                        console.log(getId)
+                    }
+                )
+            } catch (error) {
+                console.log('erros', error);
+            }
+        }
+    };
+    getData0();
+    // resgatar email end
 
     useEffect(() => {
-        
+
         (async () => {
-        
+
         let { status } = await Location.requestForegroundPermissionsAsync();
+        
         if (status !== 'granted') {
             console.log('Permission to access location was denied');
             return;
+        }else{
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+        }
+        console.log(getId)
+        
+        if (getId !== ''){
+            try {
+                supabase.patch(`/geolocation?id_usuario=eq.${getId}`, {
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                }).then(
+                    console.log('Geolocalização Atualizada')
+                );
+            } catch (error) {
+                console.log('error ao atualizar', error);
+            }
         }
 
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
         })
-
         ();
     }, []);
 
@@ -49,40 +84,15 @@ const Geolocation = () => {
     let longitude = 'Waiting..';
 
     if (location) {
-        latitude = JSON.stringify(location.coords.latitude);
-        longitude = JSON.stringify(location.coords.longitude);
+        latitude = location.coords.latitude
+        longitude = location.coords.longitude
     }else{
         console.error();
     }
 
-    const [ getId, setGetId ] = useState('');
-
-    async function handelSaveLocation () {
-        const email = await AsyncStorage.getItem('email');
-        console.log(email)
-        if (email !== '') {
-            //alert('aqui tem email ' + email)
-            try {
-                await supabase.get(`/usuario?email=eq.jdfc1@aluno.ifal.edu.br&select=id`)
-                .then(
-                    (response) => {
-                        setGetId(response.data);
-                        console.log('primeiro', getId);
-                        const valorInteiro = getId[0].id;
-                        console.log(valorInteiro);
-                    }
-                )
-            } catch (error) {
-                console.log('erros', error);
-            }
-        }
+    function voltar () {
+        navigation.navigate('Perfil');
     }
-
-    // const jsonString = '{"name":"John","age":30,"city":"New York"}';
-    // const jsonObject = JSON.parse(jsonString); // Converte a string JSON em um objeto JavaScript
-
-    // const ageValue = jsonObject.age;
-    // console.log(ageValue); // Isso irá imprimir 30 no console
 
 
     return (
@@ -93,26 +103,22 @@ const Geolocation = () => {
                         latitude: -9.617188,
                         longitude: -35.739608,
                         latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
+                        longitudeDelta: 0.0421
                     }}
                     showsUserLocation
-                    LoadingEnable
-                
-                //mapType='satellite'
+                    //mapType='satellite'
                 />
 
                 <Text style={styles.paragraph}>{latitude}</Text>
                 <Text style={styles.paragraph}>{longitude}</Text>
 
-                    <View>
-                        <ButtonBig
-                        title='Salvar Localização'
-                        onPress={handelSaveLocation}
-                        />
-                    </View>
-                
+                <View>
+                    <ButtonBig
+                        title='Voltar para página anterior'
+                        onPress={voltar}
+                    />
+                </View>
             </View>
-            
     )
 }
 

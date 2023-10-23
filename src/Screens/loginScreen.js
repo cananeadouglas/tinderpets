@@ -4,6 +4,7 @@ import { StyleSheet, TextInput, View, Image } from 'react-native';
 import { getAuth, signInWithEmailAndPassword, 
     onAuthStateChanged  } from "firebase/auth";
 import { auth } from '../firebase';
+import supabase from '../supabase';
 
 import { ButtonBig } from '../Components/buttonBig';
 import { ButtonBigCor } from '../Components/buttonBigCor';
@@ -14,9 +15,10 @@ const LoginScreen = () => {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ getId, setGetId ] = useState('');
 
     const navigation = useNavigation();
-
+    
     function redefinir () {
         //alert('redefinir')
         navigation.navigate('Redefinicao')
@@ -54,26 +56,28 @@ const LoginScreen = () => {
             return;
         }
         else {
-            signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                alert('Login Efetuado com: ' + user.email);
-                AsyncStorage.setItem('email', user.email);
-                console.log(user.email)
-                //navigation.navigate('Welcome');
-
-                if (nomePet !== null && sexoPet !== null){
-                    navigation.navigate('AuthRoutes')
-                } else {
+            try {
+                signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    alert('Login Efetuado com: ' + user.email);
+                    AsyncStorage.setItem('email', user.email);
+                    console.log(user.email)
                     navigation.navigate('Welcome');
-                }
+
+                    // if (nomePet !== null && sexoPet !== null){
+                    //     navigation.navigate('AuthRoutes')
+                    // } else {
+                    //     navigation.navigate('Welcome');
+                    // }
+
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                alert(error.message);
-            }); 
+            } catch (error) {
+                console.log('error ao completar cadastro', error);
+            }; 
         }
+
+        
     }
 
     const [ nomePet, setNomePet ] = useState('');
@@ -91,6 +95,16 @@ const LoginScreen = () => {
         }
     };
     getData0();
+
+    const removeStringFromAsyncStorage = async () => {
+        try {
+          await AsyncStorage.removeItem('nomePet');
+          //console.log('String removida do AsyncStorage com sucesso.');
+        } catch (error) {
+          //console.error('Erro ao remover a string do AsyncStorage:', error);
+        }
+    }
+    removeStringFromAsyncStorage()
 
     const getData1 = async () => {
         try {

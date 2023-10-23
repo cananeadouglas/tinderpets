@@ -42,7 +42,7 @@ const Confirmation = () => {
                     id_sexo: sexoPet,
                 }).then(
                     (response) => {
-                        alert('cadastro com sucesso')
+                        console.log('cadastro com sucesso, em supa')
                     })
             } catch (error) {
                 console.log('erros ao cadastrar', error);
@@ -50,11 +50,9 @@ const Confirmation = () => {
 
         }
 
-        alert('chegou até aqui')
+        //alert('chegou até aqui')
         navigation.navigate('AuthRoutes')
     }
-
-    
 
     const getData0 = async () => {
         try {
@@ -75,11 +73,11 @@ const Confirmation = () => {
             if (value1 !== null) {
                 if(value1 === '1'){
                     setSexoPet('Macho');
-                    console.log(sexoPet);
+                    //console.log(sexoPet);
                 }
                 if(value1 === '2'){
                     setSexoPet('Fêmea');
-                    console.log(sexoPet);
+                    //console.log(sexoPet);
                 }
             
             

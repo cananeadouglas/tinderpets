@@ -13,6 +13,7 @@ const Cadastro = () => {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ getId, setGetId ] = useState('');
 
     const navigation = useNavigation();
 
@@ -27,33 +28,34 @@ const Cadastro = () => {
             return
         }
         else{
-            createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                alert('Usuário Cadastrado ' + user.email);
-                AsyncStorage.setItem('email', user.email);
-                console.log(user.email)
-                navigation.navigate('LoginScreen');
+            try {
+                createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    alert('Usuário Cadastrado ' + user.email);
+                    AsyncStorage.setItem('email', user.email);
+                    console.log(user.email)
+                    navigation.navigate('LoginScreen');
 
-                try {
-                    supabase.post('/usuario', {
-                        email: user.email,
-                    }).then(
-                        (response) => {
-                            alert('cadastro com sucesso supa')
-                        })
-                } catch (error) {
-                    console.log('erros ao cadastrar', error);
-                }
+                    try {
+                        supabase.post('/usuario', {
+                            email: user.email,
+                        }).then(
+                            (response) => {
+                                //alert('cadastro com sucesso supa')
+                            })
+                    } catch (error) {
+                        console.log('erros ao cadastrar', error);
+                    }
+
+
             })
-            .catch((error) => {
-                const errorCode = error.code;
+            } catch(error) {
                 const errorMessage = error.message;
                 alert(error.message);
-            }); 
+            }; 
         }
 
-                  
     };
 
   return (

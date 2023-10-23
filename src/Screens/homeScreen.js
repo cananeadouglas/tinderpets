@@ -47,12 +47,6 @@ const HomeScreen = () => {
     <SafeAreaView style={styles.container}>
       <View>
 
-
-
-
-
-            {/* 
-            // Logout
             <View style={styles.buttonconteiner}>
               <Text>Logado com: { auth.currentUser?.email } </Text>
               <ButtonBig // ButtonBig Tipado em componentes
@@ -60,7 +54,6 @@ const HomeScreen = () => {
                 onPress={handleSignout}
               />
             </View>
-            */}
       </View>
     </SafeAreaView>
   )
