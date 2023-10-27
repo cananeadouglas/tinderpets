@@ -60,20 +60,6 @@ const Geolocation = () => {
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location);
         }
-        console.log(getId)
-        
-        if (getId !== ''){
-            try {
-                supabase.patch(`/geolocation?id_usuario=eq.${getId}`, {
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                }).then(
-                    console.log('Geolocalização Atualizada')
-                );
-            } catch (error) {
-                console.log('error ao atualizar', error);
-            }
-        }
 
         })
         ();
@@ -94,6 +80,60 @@ const Geolocation = () => {
         navigation.navigate('Perfil');
     }
 
+    
+
+    async function atualizar() {
+        
+        function fazerPatch() {
+            try {
+                supabase.patch(`/geolocation?id_usuario=eq.${getId}`, {
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                }).then(
+                    (response) => {
+                        return alert('Geolocalização Atualizada')
+                    }
+                    
+                );
+            } catch (error) {
+                return console.log('error ao atualizar', error);
+            }
+        }
+    
+        function fazerPost() {
+            try {
+                supabase.post('/geolocation', {
+                    id_usuario: getId,
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                }).then(
+                    (response) => {
+                        return console.log('cadastro com sucesso supa')
+                    })
+            } catch (error) {
+                return console.log('erros ao cadastrar', error);
+            }
+        }
+
+        if (getId !== ''){
+            try {
+                await supabase.get(`/geolocation?id_usuario=eq.${getId}&select=id`)
+                .then(
+                    (response) => {
+                        const dados = response.data;
+                        console.log(dados)
+                        if (dados !== ''){
+                            fazerPatch();
+                        }else{
+                            fazerPost();
+                        }
+                    }
+                )
+            } catch (error) {
+                console.log('erros', error);
+            }
+        }
+    }
 
     return (
             <View style={styles.container}>
@@ -113,6 +153,10 @@ const Geolocation = () => {
                 <Text style={styles.paragraph}>{longitude}</Text>
 
                 <View>
+                    <ButtonBig
+                        title='Atualizar Informações de Localização'
+                        onPress={atualizar}
+                    />
                     <ButtonBig
                         title='Voltar para página anterior'
                         onPress={voltar}

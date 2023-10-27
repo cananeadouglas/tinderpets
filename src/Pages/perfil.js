@@ -1,7 +1,7 @@
 import { SafeAreaView, StyleSheet, Text, View, Image } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { getAuth, signOut } from "firebase/auth";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //import picker
@@ -43,6 +43,7 @@ export default function Perfil() {
     
     const [ nomePet, setNomePet ] = useState(null);
     const [ sexoPet, setSexoPet ] = useState(null);
+    const [ raca, setRaca ] = useState(null); 
 
     const getData0 = async () => {
         try {
@@ -107,25 +108,28 @@ export default function Perfil() {
 
 
     // get raça start
-    //const [obterRaça, setObterRaca ] = useState('');
+    const [obterRaça, setObterRaca ] = useState('');
     
-    // const obterraça = async () => {
-    //     try {
-    //         const email = await AsyncStorage.getItem('email');
-    //         if(email !== ''){
-                
-    //             .then (
-    //                 (response) => {
-    //                     console.log(response.data)
-
-    //                 }
-    //             )
-    //         }
-    //     } catch (error) {
-    //         console.log('error' , error)
-    //     }
-    // }
-    // obterraça();
+    const obterraça = async () => {
+        try {
+            const email = await AsyncStorage.getItem('email');
+            if(email !== ''){
+                console.log(email)
+                supabase.get(`/usuario?select=racaanimal(title)&email=eq.${email}`)
+                .then (
+                    (response) => {
+                        const dados = response.data;
+                        //console.log(dados[0].racaanimal.title)
+                        setRaca(dados[0].racaanimal.title);
+                        console.log(raca)
+                    }
+                )
+            }
+        } catch (error) {
+            console.log('error' , error)
+        }
+    }
+    obterraça();
 
 
     // get raça end
@@ -135,8 +139,9 @@ export default function Perfil() {
             <View style={styles.container}>
                 <Text
                     style={styles.nome}>
-                    {nomePet}{"\n"}
-                    {sexoPet}
+                    Nome Pet: {nomePet}{"\n"}
+                    Sexo: {sexoPet}{"\n"}
+                    Raça: {raca}
                 </Text>
             <View>
                 <Image
@@ -199,7 +204,7 @@ export const styles = StyleSheet.create({
     },
 
     nome: {
-        fontSize: 30,
+        fontSize: 25,
         color: '#605091',
         fontWeight: "bold",
     },

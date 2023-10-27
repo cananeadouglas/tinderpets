@@ -1,11 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, TextInput, View, Image, Text, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { getAuth, 
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword, 
-    onAuthStateChanged,  
-    sendPasswordResetEmail} from "firebase/auth";
+import React, { useState } from 'react';
+import { StyleSheet, TextInput, View, Image } from 'react-native';
+import { sendPasswordResetEmail} from "firebase/auth";
 import { auth } from '../firebase';
 
 import Imgpets from '../../assets/pets.png';
@@ -55,24 +51,9 @@ const Redefinicao = () => {
                 onChangeText={text => setEmail(text)} // onchange transfere para a variável setEmail
                 style={styles.input}
             />
-            {/* <TextInput
-                placeholder='Password'
-                value={password}
-                onChangeText={text => setPassword(text)} // onchange transfere para a variável setPassword
-                style={styles.input}
-                secureTextEntry
-            /> */}
         </View>
 
         <View style={styles.buttonContainer}>
-            
-            {/* <TouchableOpacity
-                onPress={handleRedefini}
-                style={[styles.button, styles.buttonOutline]}
-            >
-                <Text style={styles.buttonOutlineText} >Redefinir</Text> 
-            </TouchableOpacity> */}
-
             <ButtonBig
                     title="Redefinir"
                     onPress={handleRedefini}

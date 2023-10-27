@@ -2,9 +2,8 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, View, Image } from 'react-native';
 import { getAuth, signInWithEmailAndPassword, 
-    onAuthStateChanged  } from "firebase/auth";
+        onAuthStateChanged  } from "firebase/auth";
 import { auth } from '../firebase';
-import supabase from '../supabase';
 
 import { ButtonBig } from '../Components/buttonBig';
 import { ButtonBigCor } from '../Components/buttonBigCor';
@@ -15,7 +14,6 @@ const LoginScreen = () => {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ getId, setGetId ] = useState('');
 
     const navigation = useNavigation();
     
@@ -70,14 +68,11 @@ const LoginScreen = () => {
                     // } else {
                     //     navigation.navigate('Welcome');
                     // }
-
             })
             } catch (error) {
                 console.log('error ao completar cadastro', error);
             }; 
         }
-
-        
     }
 
     const [ nomePet, setNomePet ] = useState('');
@@ -93,20 +88,7 @@ const LoginScreen = () => {
         } catch (e) {
           // error reading value
         }
-    };
-    getData0();
 
-    const removeStringFromAsyncStorage = async () => {
-        try {
-          await AsyncStorage.removeItem('nomePet');
-          //console.log('String removida do AsyncStorage com sucesso.');
-        } catch (error) {
-          //console.error('Erro ao remover a string do AsyncStorage:', error);
-        }
-    }
-    removeStringFromAsyncStorage()
-
-    const getData1 = async () => {
         try {
             const value1 = await AsyncStorage.getItem('sexoPet');
             if (value1 !== null) {
@@ -123,7 +105,17 @@ const LoginScreen = () => {
           // error reading value
         }
     };
-    getData1();
+    getData0();
+
+    // const removeStringFromAsyncStorage = async () => {
+    //     try {
+    //       await AsyncStorage.removeItem('nomePet');
+    //       //console.log('String removida do AsyncStorage com sucesso.');
+    //     } catch (error) {
+    //       //console.error('Erro ao remover a string do AsyncStorage:', error);
+    //     }
+    // }
+    // removeStringFromAsyncStorage()
 
     return (
         <View

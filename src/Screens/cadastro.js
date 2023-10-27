@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TextInput, View, Image } from 'react-native';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebase';
@@ -7,13 +7,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ButtonBig } from '../Components/buttonBig';
 import Imgpets from '../../assets/pets.png';
 import supabase from '../supabase';
-import LoginScreen from './loginScreen';
 
 const Cadastro = () => {
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ getId, setGetId ] = useState('');
 
     const navigation = useNavigation();
 
@@ -42,12 +40,11 @@ const Cadastro = () => {
                             email: user.email,
                         }).then(
                             (response) => {
-                                //alert('cadastro com sucesso supa')
+                                console.log('cadastro com sucesso supa')
                             })
                     } catch (error) {
                         console.log('erros ao cadastrar', error);
                     }
-
 
             })
             } catch(error) {
@@ -87,19 +84,10 @@ const Cadastro = () => {
     </View>
 
     <View style={styles.buttonContainer}>
-        
-        {/* <TouchableOpacity
-            onPress={handleSignUp}
-            style={[styles.button, styles.buttonOutline]}
-        >
-            <Text style={styles.buttonOutlineText} >Fazer Cadastro e Entrar</Text> 
-        </TouchableOpacity> */}
-
         <ButtonBig
             title="Fazer Cadastro"
             onPress={handleSignUp}
         />
-        
     </View>
 </View>
   )

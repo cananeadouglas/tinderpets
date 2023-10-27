@@ -40,6 +40,39 @@ const AuthRoutes = () => {
                 >
                 </AppTab.Screen>
 
+
+                <AppTab.Screen
+                    name="Match"
+                    component={Match}
+                    options={{
+                        tabBarIcon: (({ size, color }) => (
+                            <Entypo 
+                                name="thumbs-up"
+                                size={size}
+                                color={color}
+                            />
+                        ))
+                    }}
+                >
+                </AppTab.Screen>
+
+
+                <AppTab.Screen
+                    name="Chat"
+                    component={Chat}
+                    options={{
+                        tabBarIcon: (({ size, color }) => (
+                            <Entypo 
+                                name="chat"
+                                size={size}
+                                color={color}
+                            />
+                        ))
+                    }}
+                >
+                </AppTab.Screen>
+
+
                 <AppTab.Screen
                     name="Perfil"
                     component={Perfil}

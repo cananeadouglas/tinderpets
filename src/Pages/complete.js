@@ -54,7 +54,7 @@ const Complete = () => {
             }
 
         }else {
-            console.error('erros na solicitação', error);
+            alert('preencha todos os campos');
             return
         }
     }
@@ -84,7 +84,7 @@ const Complete = () => {
             style={styles.input}
         />
         <Text style={styles.headerText1}>
-            Indique a Raça do seu Cão aqui.
+            Indique a raça do seu cão aqui.
         </Text>
         <View>
             <ButtonWithFlatlistRaca

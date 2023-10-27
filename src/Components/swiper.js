@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, View, Image, Dimensions} from 'react-native';
+import { AppRegistry, StyleSheet, View, Image} from 'react-native';
  
-import Swiper from 'react-native-swiper'
+import Swiper from 'react-native-swiper';
 
 const fotoUrl1 = 'https://media.istockphoto.com/id/1138490082/pt/foto/where.jpg?s=1024x1024&w=is&k=20&c=djeBM611R2qktRD7s5kCDRq1bwbkanMRil2qQDu0dC0=';
 const fotoUrl2 = 'https://media.istockphoto.com/id/1168978665/pt/foto/cute-dog.jpg?s=1024x1024&w=is&k=20&c=d6RdGcLkjCrdQ1hmjRChOGeVTxjQZVBD701MxFR5ARQ=';
